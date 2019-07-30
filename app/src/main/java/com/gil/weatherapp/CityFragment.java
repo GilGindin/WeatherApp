@@ -114,7 +114,7 @@ public class CityFragment extends Fragment {
 
                 InputStreamReader reader = new InputStreamReader(gzipInputStream);
                 BufferedReader bufferedReader = new BufferedReader(reader);
-                Log.d(TAG, "doInBackground: "+gzipInputStream.toString());
+                Log.d(TAG, "doInBackground: " + gzipInputStream.toString());
                 String reading;
                 while ((reading = bufferedReader.readLine()) != null) {
                     builder.append((reading));
@@ -186,7 +186,7 @@ public class CityFragment extends Fragment {
 
     private void getWeatherInformation(String cityName) {
 
-        mCompositeDisposable.add(mService.getWeatherByCityName(cityName, Common.APP_ID )
+        mCompositeDisposable.add(mService.getWeatherByCityName(cityName, Common.APP_ID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<WeatherResult>() {
@@ -206,9 +206,10 @@ public class CityFragment extends Fragment {
                         txt_temprature.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getTemp())).append("°C").toString());
                         txt_date_time.setText(Common.convertTextToDate(weatherResult.getId()));
                         txt_pressure.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getPressure())).append(" hpa").toString());
+                        txt_wind.setText(new StringBuilder(String.valueOf(weatherResult.getWind().getSpeed())).append(" speed").toString());
                         txt_humidity.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getHumidity())).append("%").toString());
-                        txt_sunrise.setText(Common.convertUnixToHour(weatherResult.getSys().getSunset()));
-                        txt_sunset.setText(Common.convertUnixToHour(weatherResult.getSys().getSunrise()));
+                        txt_sunrise.setText(Common.convertUnixToHour(weatherResult.getSys().getSunrise()));
+                        txt_sunset.setText(Common.convertUnixToHour(weatherResult.getSys().getSunset()));
                         txt_geo_coords.setText(new StringBuilder(weatherResult.getCoord().toString()).toString());
 
                         //Display panel
