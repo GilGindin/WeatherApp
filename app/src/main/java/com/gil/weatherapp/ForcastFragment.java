@@ -75,7 +75,7 @@ public class ForcastFragment extends Fragment {
 
         mCompositeDisposable.add(mService.getForecastWeatherByLatLng(String.valueOf(MainActivity.latitude),
                 String.valueOf(MainActivity.longitude),
-                Common.APP_ID).subscribeOn(Schedulers.io())
+                Common.APP_ID , "metric").subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).
                         subscribe(new Consumer<WeatherForecastResult>() {
                             @Override
@@ -91,6 +91,12 @@ public class ForcastFragment extends Fragment {
                             }
                         }));
 
+    }
+
+    @Override
+    public void onDestroy() {
+        mCompositeDisposable.clear();
+        super.onDestroy();
     }
 
     @Override

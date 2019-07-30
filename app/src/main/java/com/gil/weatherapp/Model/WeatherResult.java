@@ -15,6 +15,7 @@ public class WeatherResult {
     private int id;
     private String name;
     private int cod;
+    private CityList mCityList;
 
     public WeatherResult() {
 
@@ -108,4 +109,11 @@ public class WeatherResult {
         this.cod = cod;
     }
 
+    public CityList getCityList() {
+        return mCityList;
+    }
+
+    public void setCityList(CityList cityList) {
+        mCityList = cityList;
+    }
 }

@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.gil.weatherapp.Adapter.ViewPagerAdapter;
+import com.gil.weatherapp.Common.Common;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -109,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
                     if (location != null) {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-                        //  Common.current_location = locationResult.getLocations();
+                        Common.current_location = locationResult.getLastLocation();
+                        Log.d(TAG, "onLocationResult: -------------" + locationResult.getLastLocation());
                     }
                 }
                 mViewPager = findViewById(R.id.view_pager);
@@ -121,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-
     private void setUpViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), MainActivity.this);
         adapter.addFragment(TodayWeatherFragment.getInstance(), "Today");
-        adapter.addFragment(ForcastFragment.getInstance() , "5 DAYS");
+        adapter.addFragment(ForcastFragment.getInstance(), "5 DAYS");
+        adapter.addFragment(CityFragment.getInstance(), "Cities");
         viewPager.setAdapter(adapter);
 
     }
